@@ -1,4 +1,4 @@
-#  img_viewer.py
+# img_viewer.py
 
 import PySimpleGUI as sg
 import os.path
@@ -8,7 +8,7 @@ import os.path
 file_list_column = [
     [
         sg.Text("Image Folder"),
-        sg.In(size=(25,1), enable_events=True, key="-FOLDER-"),
+        sg.In(size=(25, 1), enable_events=True, key="-FOLDER-"),
         sg.FolderBrowse(),
     ],
     [
@@ -18,14 +18,14 @@ file_list_column = [
     ],
 ]
 
-#For now will only show the name of the file that was chosen
+# For now will only show the name of the file that was chosen
 image_viewer_column = [
     [sg.Text("Choose an image from list on left:")],
     [sg.Text(size=(40, 1), key="-TOUT-")],
     [sg.Image(key="-IMAGE-")],
 ]
 
-# ----- Full Layout -----
+# ----- Full layout -----
 layout = [
     [
         sg.Column(file_list_column),
@@ -45,22 +45,22 @@ while True:
     if event == "-FOLDER-":
         folder = values["-FOLDER-"]
         try:
-            #Get list of files in folder
+            # Get list of files in folder
             file_list = os.listdir(folder)
         except:
             file_list = []
-        
+
         fnames = [
-            f 
+            f
             for f in file_list
             if os.path.isfile(os.path.join(folder, f))
             and f.lower().endswith((".png", ".gif"))
         ]
         window["-FILE LIST-"].update(fnames)
-    elif event == "-FILE LIST-": # a file was chosen from listbox
+    elif event == "-FILE LIST-":  # A file was chosen from the listbox
         try:
             filename = os.path.join(
-                values["-FOLDER-"], values["-FILE LIST"][0]
+                values["-FOLDER-"], values["-FILE LIST-"][0]
             )
             window["-TOUT-"].update(filename)
             window["-IMAGE-"].update(filename=filename)
